@@ -20,8 +20,13 @@ public class lowTaperFadeIsStillMassive : MonoBehaviour
         yield return new WaitForSeconds(delay);
         
         if(active){
+            float randomX = Random.Range(-screenBounds.x, screenBounds.x);
+            float spawnY = screenBounds.y + 1;
 
+            Instantiate(bombPrefab, new Vector3(randomX, spawnY, 8), bombPrefab.transform.rotation);
+            ResetDelay();
         }
+        StartCoroutine(EnemyGenerator());
     }
 
     void ResetDelay()
