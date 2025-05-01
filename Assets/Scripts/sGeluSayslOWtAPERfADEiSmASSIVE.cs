@@ -5,6 +5,7 @@ using UnityEngine;
 public class sGeluSayslOWtAPERfADEiSmASSIVE : MonoBehaviour
 {
     public GameObject bombPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
