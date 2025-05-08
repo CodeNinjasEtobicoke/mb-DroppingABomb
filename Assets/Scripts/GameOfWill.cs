@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public class GameOfWill : MonoBehaviour
@@ -9,6 +10,8 @@ public class GameOfWill : MonoBehaviour
     private LowTaperSpawner spawner;
     public GameObject title;
     private Vector2 screenBounds;
+
+    public GameObject splash;
 
     [Header("Player of josh character")]
     public GameObject playerPrefab;
@@ -25,6 +28,7 @@ public class GameOfWill : MonoBehaviour
     {
         spawner.active = false;
         title.SetActive(false);
+        splash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,6 +36,7 @@ public class GameOfWill : MonoBehaviour
     {
         if (!gameStarted)
         {
+            Debug.Log("not gamestarted" + gameStarted);
             if (Input.anyKeyDown)
             {
                 ResetGame();
@@ -66,9 +71,19 @@ public class GameOfWill : MonoBehaviour
     {
         spawner.active = true;
         title.SetActive(false);
+        splash.SetActive(false) ;
 
-        playerPrefab = Instantiate(playerPrefab, new Vector3(0, 0, 8), playerPrefab.transform.rotation);
+        player = Instantiate(playerPrefab, new Vector3(0, 0, 8), playerPrefab.transform.rotation);
         gameStarted = true;
+    }
+
+    void OnPlayerKilled()
+    {
+        Debug.Log("player killed");
+        spawner.active = false;
+        gameStarted = false;
+
+        splash.SetActive(true);
     }
 
 
