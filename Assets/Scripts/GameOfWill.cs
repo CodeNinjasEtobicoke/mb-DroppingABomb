@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.VFX;
+using TMPro;
 
 public class GameOfWill : MonoBehaviour
 {
@@ -17,10 +18,16 @@ public class GameOfWill : MonoBehaviour
     public GameObject playerPrefab;
     private GameObject player;
     private bool gameStarted = false;
+
+    [Header("score")]
+    public TMP_Text scoreText;
+    public int pointsWorth = 1;
+    private int score;
     private void Awake()
     {
         spawner = GameObject.Find("SpawnUnicorn").GetComponent<LowTaperSpawner>();
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        scoreText.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -62,6 +69,11 @@ public class GameOfWill : MonoBehaviour
         {
             if (bombObject.transform.position.y < (-screenBounds.y - 12))
             {
+                if (bombObject.transform.position.y < (-screenBounds.y - 12))
+                {
+                    score += pointsWorth;
+                    scoreText.text = "score: " + score.ToString();
+                }
                 Destroy(bombObject);
             }
          }
@@ -72,6 +84,11 @@ public class GameOfWill : MonoBehaviour
         spawner.active = true;
         title.SetActive(false);
         splash.SetActive(false) ;
+
+        scoreText.enabled = true;
+        score = 0;
+
+        scoreText.text = "score: " + score.ToString();
 
         player = Instantiate(playerPrefab, new Vector3(0, 0, 8), playerPrefab.transform.rotation);
         gameStarted = true;
