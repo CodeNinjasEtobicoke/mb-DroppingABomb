@@ -19,10 +19,10 @@ public class GameOfWill : MonoBehaviour
     private GameObject player;
     private bool gameStarted = false;
 
-    [Header("score")]
+    [Header("Skibidi score")]
     public TMP_Text scoreText;
     public int pointsWorth = 1;
-    private int score;
+    private int SkibidiScore;
     private void Awake()
     {
         spawner = GameObject.Find("SpawnUnicorn").GetComponent<LowTaperSpawner>();
@@ -71,8 +71,8 @@ public class GameOfWill : MonoBehaviour
             {
                 if (bombObject.transform.position.y < (-screenBounds.y - 12))
                 {
-                    score += pointsWorth;
-                    scoreText.text = "score: " + score.ToString();
+                    SkibidiScore += pointsWorth;
+                    scoreText.text = "Skibidi Score: " + SkibidiScore.ToString();
                 }
                 Destroy(bombObject);
             }
@@ -86,9 +86,9 @@ public class GameOfWill : MonoBehaviour
         splash.SetActive(false) ;
 
         scoreText.enabled = true;
-        score = 0;
+        SkibidiScore = 0;
 
-        scoreText.text = "score: " + score.ToString();
+        scoreText.text = "score: " + SkibidiScore.ToString();
 
         player = Instantiate(playerPrefab, new Vector3(0, 0, 8), playerPrefab.transform.rotation);
         gameStarted = true;
