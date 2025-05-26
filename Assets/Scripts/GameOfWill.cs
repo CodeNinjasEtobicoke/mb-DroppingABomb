@@ -23,6 +23,8 @@ public class GameOfWill : MonoBehaviour
     public TMP_Text scoreText;
     public int pointsWorth = 1;
     private int SkibidiScore;
+
+    private bool sigmasmokeCleared = true;
     private void Awake()
     {
         spawner = GameObject.Find("SpawnUnicorn").GetComponent<LowTaperSpawner>();
@@ -44,8 +46,9 @@ public class GameOfWill : MonoBehaviour
         if (!gameStarted)
         {
             Debug.Log("not gamestarted" + gameStarted);
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown && sigmasmokeCleared)
             {
+                sigmasmokeCleared = false;
                 ResetGame();
             }
            
@@ -100,6 +103,14 @@ public class GameOfWill : MonoBehaviour
         spawner.active = false;
         gameStarted = false;
 
+        splash.SetActive(true);
+
+        Invoke("SplashScreen", 2); ;
+    }
+
+    void SplashScreen()
+    {
+        sigmasmokeCleared = true;
         splash.SetActive(true);
     }
 

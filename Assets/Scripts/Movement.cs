@@ -40,6 +40,8 @@ public class Movement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        Debug.Log(horizontal);
+        Debug.Log(vertical);
 
         if (platformSettings)
         {
