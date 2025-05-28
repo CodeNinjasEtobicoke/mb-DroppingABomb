@@ -24,12 +24,21 @@ public class GameOfWill : MonoBehaviour
     public int pointsWorth = 1;
     private int SkibidiScore;
 
+    private int bestScoreFromOhio = 0;
+    public TMP_Text bestSkibidiText;
+    private bool beatBestToilet;
+
+    public Color bestScoreColor;
+    public Color normalColor;
+   
     private bool sigmasmokeCleared = true;
     private void Awake()
     {
         spawner = GameObject.Find("SpawnUnicorn").GetComponent<LowTaperSpawner>();
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         scoreText.enabled = false;
+
+        bestSkibidiText.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -38,6 +47,9 @@ public class GameOfWill : MonoBehaviour
         spawner.active = false;
         title.SetActive(false);
         splash.SetActive(false);
+
+        bestScoreFromOhio = PlayerPrefs.GetInt("BestOhioSpeedrun");
+        bestSkibidiText.text = "Best Ohio Speedrun: " + bestScoreFromOhio.ToString();
     }
 
     // Update is called once per frame
@@ -82,14 +94,20 @@ public class GameOfWill : MonoBehaviour
          }
     }
 
+    
+
     void ResetGame()
     {
+        bestSkibidiText.color = normalColor;
         spawner.active = true;
         title.SetActive(false);
         splash.SetActive(false) ;
 
         scoreText.enabled = true;
         SkibidiScore = 0;
+
+        beatBestToilet = false;
+        bestSkibidiText.enabled = true; 
 
         scoreText.text = "score: " + SkibidiScore.ToString();
 
@@ -105,7 +123,15 @@ public class GameOfWill : MonoBehaviour
 
         splash.SetActive(true);
 
-        Invoke("SplashScreen", 2); ;
+        Invoke("SplashScreen", 2);
+
+        if(SkibidiScore > bestScoreFromOhio)
+        {
+            bestScoreFromOhio = SkibidiScore;
+            PlayerPrefs.SetInt("BestScore", bestScoreFromOhio);
+            beatBestToilet = true;
+            bestSkibidiText.text = "Best ohio speedrun: " + bestScoreFromOhio.ToString();
+        }
     }
 
     void SplashScreen()
