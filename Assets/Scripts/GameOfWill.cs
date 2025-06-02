@@ -48,8 +48,8 @@ public class GameOfWill : MonoBehaviour
         title.SetActive(false);
         splash.SetActive(false);
 
-        bestScoreFromOhio = PlayerPrefs.GetInt("BestOhioSpeedrun");
-        bestSkibidiText.text = "Best Ohio Speedrun: " + bestScoreFromOhio.ToString();
+        bestScoreFromOhio = PlayerPrefs.GetInt("BestScoreFromOhio");
+        bestSkibidiText.text = "Best Score From Ohio: " + bestScoreFromOhio.ToString();
     }
 
     // Update is called once per frame
@@ -84,7 +84,7 @@ public class GameOfWill : MonoBehaviour
         {
             if (bombObject.transform.position.y < (-screenBounds.y - 12))
             {
-                if (bombObject.transform.position.y < (-screenBounds.y - 12))
+                if (gameStarted)
                 {
                     SkibidiScore += pointsWorth;
                     scoreText.text = "Skibidi Score: " + SkibidiScore.ToString();
@@ -107,7 +107,7 @@ public class GameOfWill : MonoBehaviour
         SkibidiScore = 0;
 
         beatBestToilet = false;
-        bestSkibidiText.enabled = true; 
+        bestSkibidiText.enabled = true;
 
         scoreText.text = "score: " + SkibidiScore.ToString();
 
@@ -127,10 +127,11 @@ public class GameOfWill : MonoBehaviour
 
         if(SkibidiScore > bestScoreFromOhio)
         {
+            bestSkibidiText.color = bestScoreColor;
             bestScoreFromOhio = SkibidiScore;
             PlayerPrefs.SetInt("BestScore", bestScoreFromOhio);
             beatBestToilet = true;
-            bestSkibidiText.text = "Best ohio speedrun: " + bestScoreFromOhio.ToString();
+            bestSkibidiText.text = "Best Score From Ohio: " + bestScoreFromOhio.ToString();
         }
     }
 
