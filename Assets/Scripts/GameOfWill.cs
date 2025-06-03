@@ -30,7 +30,7 @@ public class GameOfWill : MonoBehaviour
 
     public Color bestScoreColor;
     public Color normalColor;
-   
+
     private bool sigmasmokeCleared = true;
     private void Awake()
     {
@@ -63,7 +63,7 @@ public class GameOfWill : MonoBehaviour
                 sigmasmokeCleared = false;
                 ResetGame();
             }
-           
+
         }
         else
         {
@@ -91,17 +91,17 @@ public class GameOfWill : MonoBehaviour
                 }
                 Destroy(bombObject);
             }
-         }
+        }
     }
 
-    
+
 
     void ResetGame()
     {
         bestSkibidiText.color = normalColor;
         spawner.active = true;
         title.SetActive(false);
-        splash.SetActive(false) ;
+        splash.SetActive(false);
 
         scoreText.enabled = true;
         SkibidiScore = 0;
@@ -125,7 +125,7 @@ public class GameOfWill : MonoBehaviour
 
         Invoke("SplashScreen", 2);
 
-        if(SkibidiScore > bestScoreFromOhio)
+        if (SkibidiScore > bestScoreFromOhio)
         {
             bestSkibidiText.color = bestScoreColor;
             bestScoreFromOhio = SkibidiScore;
@@ -140,6 +140,4 @@ public class GameOfWill : MonoBehaviour
         sigmasmokeCleared = true;
         splash.SetActive(true);
     }
-
-
 }
